@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Movie = ({ title, runtime, releaseYear }) => {
-    var yr = releaseYear > '2020' || releaseYear < '1875' ? '' : `(${releaseYear})`
-    var run = isNaN(Number(runtime)) && (Number(runtime) < 0 || Number(runtime) > 100000) ? '' : `, ${runtime} min`
+const Movie = ({movie, attributes}) => {
+    const [toggleShow, setToggleShow ] = useState(false)
+    const yr = movie.startyear > '2020' || movie.startyear < '1875' ? '' : `(${movie.startyear})`
+    const run = isNaN(Number(movie.runtimeminutes)) || Number(movie.runtimeminutes) > 550 ? '' : `, ${movie.runtimeminutes} min`
+    const show = toggleShow ? {display: ''} : {display: 'none'}
+    console.log(movie.primarytitle)
     return (
-        <li>
-            {title} {yr}{run}
-        </li>  
+        <div onClick={() => setToggleShow(!toggleShow)}>
+            <p>{movie.primarytitle}{yr}{run}</p>
+            <ul style={show}>
+                <li>genres: </li>
+                <li>cast and crew: </li>
+                <li>type: </li>
+                <li>region: </li>
+            </ul>
+        </div>  
     )
 }
 
