@@ -1,5 +1,4 @@
 import React from 'react'
-import moviesService from '../services/movies'
 
 const Searchbar = ({ handleSearch, search, setSearch, setFiltered, sortBy, safety, setSafety, isAsc }) => {
     return (

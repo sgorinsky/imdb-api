@@ -3,6 +3,7 @@ import './App.css';
 import Searchbar from './components/searchbar'
 import Movie from './components/movie'
 import Button from './components/button'
+import Page from './components/page'
 import moviesService from './services/movies'
 
 function App() {
@@ -15,6 +16,12 @@ function App() {
   const [safety, setSafety] = useState(true)
   const [currentButtons, setCurrentButtons] = useState(Array.from(Array(fields.length)).map(entry => entry === 'All' ? true : false))
   const [attributes, setAttributes] = useState(null)
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    handleDisplay('all', 999)
+  })
+
   const buttonsDisplay = () => {
     return fields.map((field, index) => <Button 
       key={index} 
@@ -27,16 +34,13 @@ function App() {
       setIsAsc={setIsAsc}
     />)
   }
-  const moviesDisplay = () => {
-    if (filtered.length > 0) {
-      return filtered.map((movie, index) => 
+  const moviesDisplay = filtered.length > 0 ? filtered.map((movie, index) => 
         <Movie key={index}
                movie={movie}
                attributes={attributes} 
-          />
-        )
-    }
-  }
+          />)
+        : []
+
   const lookupPath = {
     'Titles A-Z': ['az', 'primarytitle'],
     'Release year': ['startyear', 'startyear'],
@@ -44,23 +48,13 @@ function App() {
     'All': ['all', 'primarytitle'],
     'Parental Controls': ['']
   }
-
-  const handleSearch = async event => {
-    event.preventDefault()
-    var lookup = lookupPath[sortBy]
-    const orderBy = isAsc[1] === false ? 'desc' : 'asc'
-    console.log(lookup)
-    setSafety(safety)
-    var isSafe = safety ? 'safetyon' : 'safetyoff'
-    const path = lookupPath[sortBy][0] !== 'all' ? `${isSafe}/${lookup[0]}/${orderBy}` : 'all'
-    console.log(path)
-
+  const handleDisplay = async (path = 'all', size=399) => {
     var movies = { 'movies': [], 'alreadyIn': {} }
     const all = await moviesService.get(path)
     if (all) {
       for (var i = 0; i < all.length; ++i) {
         const current = all[i]
-        const field = current[lookup[1]].toLowerCase()
+        const field = current[lookupPath[sortBy][1]].toLowerCase()
         const titleField = current.primarytitle.toLowerCase() // lookups in movies.alreadyIn are by primarytitle
         if (!movies.alreadyIn.hasOwnProperty(titleField) && (field.includes(search.toLowerCase()) || titleField.includes(search.toLowerCase()))) {
           movies.movies = movies.movies.concat(current)
@@ -79,7 +73,7 @@ function App() {
               }
             }
           }
-          if (movies.movies.length > 300) {
+          if (movies.movies.length > size) {
             break
           }
         } else if (movies.alreadyIn.hasOwnProperty(titleField) && (field.includes(search.toLowerCase()) || titleField.includes(search.toLowerCase()))) {
@@ -96,10 +90,20 @@ function App() {
       }
       setFiltered(movies.movies)
       setAttributes(() => movies.alreadyIn)
-      console.log(movies.alreadyIn)
-      console.log(attributes)
     }
-  }   
+  }
+  
+  const handleSearch = async event => {
+    event.preventDefault()
+    const orderBy = isAsc[1] === false ? 'desc' : 'asc'
+    setSafety(safety)
+    var isSafe = safety ? 'safetyon' : 'safetyoff'
+    const path = lookupPath[sortBy][0] !== 'all' ? `${isSafe}/${lookupPath[sortBy][0]}/${orderBy}` : 'all'
+    handleDisplay(path)
+  }
+
+  
+  
   return (
     <>
       {buttonsDisplay()}
@@ -118,7 +122,7 @@ function App() {
         setSafety={setSafety}
         setAttributes={setAttributes}
       />
-      {moviesDisplay()}
+      <Page array={moviesDisplay} page={page} setPage={setPage} />
     </>
   )
 }

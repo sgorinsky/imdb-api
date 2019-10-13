@@ -21,6 +21,11 @@
   color: #09d3ac;
 }
 
+.page {
+  position:relative;
+  left: 200px;
+}
+
 div {
   position: relative;
   left: 80px;
