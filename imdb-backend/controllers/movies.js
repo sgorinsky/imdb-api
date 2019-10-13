@@ -52,7 +52,6 @@ moviesRouter.get('/safetyon/runtime/desc', (request, response, next) => {
 })
 
 // safety off
-
 moviesRouter.get('/safetyoff/az/asc',  (request, response, next) => {
     try {
         const all = movies['safetyOff']['az']['asc']
