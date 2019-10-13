@@ -1,19 +1,25 @@
 import React from 'react'
 
-const Searchbar = ({ handleSearch, search, setSearch, setFiltered, sortBy, safety, setSafety, isAsc }) => {
+const Searchbar = ({ handleSearch, search, setSearch, loader, setPage }) => {
+    const handleChange = (event) => {
+        setSearch(event.target.value)
+    }
+    
     return (
-        <>
+        <div className="form-group">
             <form onSubmit={handleSearch}>
                 search: 
                 <input 
+                    placeholder='search'
                     type='text' 
                     value={search}
                     name='search' 
-                    onChange={(event) => setSearch(event.target.value)}
+                    onChange={handleChange}
                 />
-                <button type='submit'>show</button>
+                <button type='submit' className="btn btn-space btn-primary" onClick={() => setPage(1)}>show</button>
             </form>
-        </>
+            <div className="loader" style={loader ? {display: ''}: {display:'none'}}></div>
+        </div>
     )
 }
 

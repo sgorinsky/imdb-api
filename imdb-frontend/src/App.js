@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Searchbar from './components/searchbar'
 import Movie from './components/movie'
@@ -6,24 +7,32 @@ import Button from './components/button'
 import Page from './components/page'
 import moviesService from './services/movies'
 
+const lookupPath = {
+  'Titles A-Z': ['az', 'primarytitle'],
+  'Release year': ['startyear', 'startyear'],
+  'Runtime (in min)': ['runtime', 'runtimeminutes'],
+  'All': ['all', 'primarytitle'],
+  'Parental Controls': ['']
+}
+
 function App() {
   const fields = ['Titles A-Z', 'Release year', 'Runtime (in min)', 'All']
 
   const [search, setSearch] = useState('')
   const [filtered, setFiltered] = useState([])
   const [isAsc, setIsAsc] = useState([undefined, undefined]) 
-  const [sortBy, setSortBy] = useState(fields[0])
+  const [sortBy, setSortBy] = useState('All')
   const [safety, setSafety] = useState(true)
   const [currentButtons, setCurrentButtons] = useState(Array.from(Array(fields.length)).map(entry => entry === 'All' ? true : false))
   const [attributes, setAttributes] = useState(null)
   const [page, setPage] = useState(1)
-
+  const [loader, setLoader] = useState(false)
   useEffect(() => {
     handleDisplay('all', 999)
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const buttonsDisplay = () => {
-    return fields.map((field, index) => <Button 
+  const buttonsDisplay = fields.map((field, index) => <Button 
       key={index} 
       name={field} 
       index={index} 
@@ -32,8 +41,10 @@ function App() {
       setCurrentButtons={setCurrentButtons}
       isAsc={isAsc}
       setIsAsc={setIsAsc}
+      filtered={filtered}
+      setFiltered={setFiltered}
     />)
-  }
+  
   const moviesDisplay = filtered.length > 0 ? filtered.map((movie, index) => 
         <Movie key={index}
                movie={movie}
@@ -41,14 +52,8 @@ function App() {
           />)
         : []
 
-  const lookupPath = {
-    'Titles A-Z': ['az', 'primarytitle'],
-    'Release year': ['startyear', 'startyear'],
-    'Runtime (in min)': ['runtime', 'runtimeminutes'],
-    'All': ['all', 'primarytitle'],
-    'Parental Controls': ['']
-  }
-  const handleDisplay = async (path = 'all', size=399) => {
+  const handleDisplay = async (path = 'all', size=699) => {
+    setLoader(true)
     var movies = { 'movies': [], 'alreadyIn': {} }
     const all = await moviesService.get(path)
     if (all) {
@@ -88,12 +93,13 @@ function App() {
           }
         }
       }
+      setLoader(false)
       setFiltered(movies.movies)
       setAttributes(() => movies.alreadyIn)
     }
   }
   
-  const handleSearch = async event => {
+  const handleSearch = async (event) => {
     event.preventDefault()
     const orderBy = isAsc[1] === false ? 'desc' : 'asc'
     setSafety(safety)
@@ -101,29 +107,22 @@ function App() {
     const path = lookupPath[sortBy][0] !== 'all' ? `${isSafe}/${lookupPath[sortBy][0]}/${orderBy}` : 'all'
     handleDisplay(path)
   }
-
-  
   
   return (
-    <>
-      {buttonsDisplay()}
-      <button onClick={() => setSafety(!safety)}>
+    <div className='app'>      
+      {buttonsDisplay}
+      <button className="btn btn-space btn-outline-secondary btn-sm" onClick={() => setSafety(!safety)}>
         {safety ? 'Parental controls currently on' : 'Parental controls currently off'}
       </button>
       <Searchbar key='searchbar' 
         handleSearch={handleSearch}
         search={search} 
         setSearch={setSearch} 
-        filtered={filtered} 
-        setFiltered={setFiltered} 
-        sortBy={sortBy} 
-        isAsc={isAsc}
-        safety={safety}
-        setSafety={setSafety}
-        setAttributes={setAttributes}
+        loader={loader}
+        setPage={setPage}
       />
       <Page array={moviesDisplay} page={page} setPage={setPage} />
-    </>
+    </div>
   )
 }
 

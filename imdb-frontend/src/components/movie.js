@@ -6,14 +6,11 @@ const Movie = ({movie, attributes}) => {
     const run = isNaN(Number(movie.runtimeminutes)) || Number(movie.runtimeminutes) > 900 ? '' : `, ${movie.runtimeminutes} min`
     const show = toggleShow ? {display: ''} : {display: 'none'}
     return (
-        <div onClick={() => setToggleShow(!toggleShow)}>
-            <p>{movie.primarytitle}{yr}{run}</p>
-            <ul style={show}>
-                <li>genres: </li>
-                <li>cast and crew: </li>
-                <li>type: </li>
-                <li>region: </li>
-            </ul>
+        <div id="movie-show" className="list-group-item short-fat" onClick={() => setToggleShow(!toggleShow)}>
+            <p><strong>{movie.primarytitle}{yr}{run}</strong></p>
+            <p className='movie-facts' style={show}>
+                genres: , cast and crew: , type: , region:
+            </p>
         </div>  
     )
 }
