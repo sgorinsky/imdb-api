@@ -33,7 +33,7 @@ function App() {
   const [loader, setLoader] = useState(false)
   
   useEffect(() => {
-    handleDisplay('all', 4999)
+    handleDisplay('safetyoff/all', 4999)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -91,7 +91,7 @@ function App() {
     const orderBy = isAsc[1] === false ? 'desc' : 'asc' 
     setSafety(safety)
     var isSafe = safety ? 'safetyon' : 'safetyoff'
-    const path = lookupPath[sortBy][0] !== 'all' ? `${isSafe}/${lookupPath[sortBy][0]}/${orderBy}` : 'all'
+    const path = lookupPath[sortBy][0] !== 'all' ? `${isSafe}/${lookupPath[sortBy][0]}/${orderBy}` : `${isSafe}/all`
     handleDisplay(path)
   }
   

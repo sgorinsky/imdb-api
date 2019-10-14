@@ -23,7 +23,8 @@ const queries = {
         'runtime':{
             'asc':'',
             'desc':''
-        }
+        },
+        'all': ''
     },
     'safetyOff': {
         'az': {
@@ -37,9 +38,9 @@ const queries = {
         'runtime': {
             'asc': '',
             'desc': ''
-        }
-    },
-    'all': ''
+        },
+        'all': ''
+    }
 } 
 
 // safety on -- not adult
@@ -63,5 +64,7 @@ queries['safetyOff']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminu
 queries['safetyOff']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runtime_string_length, * FROM az_asc where runtimeminutes < \'A\' and length(runtimeminutes) = 3 AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtime_string_length, runtimeminutes desc LIMIT 60000;'
 
 // for searching
-queries['all'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC'
+queries['safetyOn']['all'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle ASC'
+queries['safetyOff']['all'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC'
+
 module.exports = queries 

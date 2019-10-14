@@ -16,7 +16,8 @@ const movies = {
         'runtime': {
             'asc': '',
             'desc': ''
-        }
+        },
+        'all': ''
     },
     'safetyOff': {
         'az': {
@@ -30,9 +31,10 @@ const movies = {
         'runtime': {
             'asc': '',
             'desc': ''
-        }
-    },
-    'all': ''
+        },
+        'all': ''
+    }
+    
 } 
 
 
@@ -93,13 +95,21 @@ const loadInData = async () => {
         console.log('Retrieved safety off runtime desc')
     })
 
-    // ALL Query
-    pool.query(queries['all'], (error, response) => {
-        movies['all'] = response.rows
-        console.log('Retrieved all')
+    // ALL Queries
+    pool.query(queries['safetyOn']['all'], (error, response) => {
+        movies['safetyOn']['all'] = response.rows
+        console.log('Retrieved on all')
+        
+    })
+
+    pool.query(queries['safetyOff']['all'], (error, response) => {
+        movies['safetyOff']['all'] = response.rows
+        console.log('Retrieved off all')
         pool.end()
         console.log('Pool is closed')
     })
+
+    
 }
 loadInData()
 

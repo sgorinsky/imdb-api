@@ -102,9 +102,18 @@ moviesRouter.get('/safetyoff/runtime/desc', async (request, response, next) => {
 })
 
 // all
-moviesRouter.get('/all',  async (request, response, next) => {
+moviesRouter.get('/safetyon/all',  (request, response, next) => {
     try {
-        const all = movies['all']
+        const all = movies['safetyOn']['all']
+        response.json(all);
+    } catch (exception) {
+        next(exception);
+    }
+})
+
+moviesRouter.get('/safetyoff/all', (request, response, next) => {
+    try {
+        const all = movies['safetyOff']['all']
         response.json(all);
     } catch (exception) {
         next(exception);
