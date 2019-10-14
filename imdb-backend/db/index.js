@@ -2,6 +2,7 @@ const { Pool } = require('pg')
 const connectionString = require('../utils/config').RDS_URI
 const queries = require('./queries')
 
+// movie lookups stored in rest
 const movies = {
     'safetyOn': {
         'az': {

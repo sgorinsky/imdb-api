@@ -16,7 +16,9 @@ const Searchbar = ({ handleSearch, search, setSearch, loader, setPage }) => {
                     name='search' 
                     onChange={handleChange}
                 />
-                <button type='submit' id="search-button" className="btn btn-space btn-sm btn-primary" onClick={() => setPage(1)}>show</button>
+                <button type='submit' id="search-button" className="btn btn-space btn-sm btn-primary" onClick={() => setPage(1)}>
+                    show
+                </button>
             </form>
             <div className="loader" style={loader ? {display: ''}: {display:'none'}}></div>
         </div>

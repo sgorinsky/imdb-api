@@ -24,8 +24,8 @@
 .loader {
   position:relative;
   left:320px;
-  border: 7px solid #f3f3f3; /* Light grey */
-  border-top: 7px solid #3498db; /* Blue */
+  border: 7px solid #f3f3f3;
+  border-top: 7px solid #3498db;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -39,7 +39,6 @@
 
 #movie-show {
   background-color:#e3e7ea;
-  border-color: black;
 }
 
 #movie-show p {
@@ -71,9 +70,9 @@
   left: 275px;
 }
 .short-fat {
-  width:900px;
-  height:100px;
-  border-radius:10px;
+  width:800px;
+  height:60px;
+  border-radius:5px;
 }
 .movie-facts {
   font-size: 12px;
@@ -106,7 +105,8 @@ ul {
 }
 
 #movie-show:hover {
-  background-color:lightgray;
-  width:902px;
-  height:102px;
+  background-color:#e3e7eaec;
+  border-color: darkgray;
+  width:802px;
+  height:61px;
 }

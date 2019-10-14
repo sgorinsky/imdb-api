@@ -46,7 +46,7 @@ const queries = {
 queries['safetyOn']['az']['asc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle LIMIT 60000;'
 queries['safetyOn']['az']['desc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle DESC LIMIT 60000;'
 
-queries['safetyOn']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 60000;'
+queries['safetyOn']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear LIMIT 60000;'
 queries['safetyOn']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 60000;'
 
 queries['safetyOn']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 60000;'
@@ -56,7 +56,7 @@ queries['safetyOn']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runti
 queries['safetyOff']['az']['asc'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC LIMIT 60000;'
 queries['safetyOff']['az']['desc'] = 'SELECT * FROM az_asc ORDER BY primarytitle DESC LIMIT 60000;'
 
-queries['safetyOff']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 60000;'
+queries['safetyOff']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE startyear ~ \'^[0-9\.]+$\'ORDER BY startyear LIMIT 60000;'
 queries['safetyOff']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 60000;'
 
 queries['safetyOff']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 60000;'
