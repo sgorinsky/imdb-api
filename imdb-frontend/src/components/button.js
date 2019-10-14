@@ -8,7 +8,7 @@ const Button = ({ index, name, isAsc, setIsAsc, currentButtons, setCurrentButton
         setSortBy(name)
     }
     return (
-        <button onClick={toggleButton} type="button" className="btn btn-space btn-secondary btn-sm"> {currentButtons[index] ? `sorted by ${name} ${show}`: name} </button>
+        <button onClick={toggleButton} type="button" className="btn btn-space btn-secondary btn-sm"> {currentButtons[index] ? `sort by ${name} ${show}`: name} </button>
     )
 }
 

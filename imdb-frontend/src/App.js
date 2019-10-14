@@ -16,7 +16,7 @@ const lookupPath = {
 }
 
 function App() {
-  const fields = ['Titles A-Z', 'Release year', 'Runtime (in min)', 'All']
+  const fields = ['All', 'Titles A-Z', 'Release year', 'Runtime (in min)' ]
 
   const [search, setSearch] = useState('')
   const [filtered, setFiltered] = useState([])
@@ -28,7 +28,7 @@ function App() {
   const [page, setPage] = useState(1)
   const [loader, setLoader] = useState(false)
   useEffect(() => {
-    handleDisplay('all', 999)
+    handleDisplay('all', 4999)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -52,15 +52,17 @@ function App() {
           />)
         : []
 
-  const handleDisplay = async (path = 'all', size=699) => {
+  const handleDisplay = async (path = 'all', size=2499) => {
     setLoader(true)
     var movies = { 'movies': [], 'alreadyIn': {} }
     const all = await moviesService.get(path)
     if (all) {
       for (var i = 0; i < all.length; ++i) {
         const current = all[i]
+        
         const field = current[lookupPath[sortBy][1]].toLowerCase()
         const titleField = current.primarytitle.toLowerCase() // lookups in movies.alreadyIn are by primarytitle
+        
         if (!movies.alreadyIn.hasOwnProperty(titleField) && (field.includes(search.toLowerCase()) || titleField.includes(search.toLowerCase()))) {
           movies.movies = movies.movies.concat(current)
           movies.alreadyIn[titleField] = {
@@ -110,10 +112,12 @@ function App() {
   
   return (
     <div className='app'>      
-      {buttonsDisplay}
-      <button className="btn btn-space btn-outline-secondary btn-sm" onClick={() => setSafety(!safety)}>
-        {safety ? 'Parental controls currently on' : 'Parental controls currently off'}
-      </button>
+      <div className="buttons">
+        {buttonsDisplay}
+        <button className="btn btn-space btn-light btn-sm" onClick={() => setSafety(!safety)}>
+          {safety ? 'Parental controls currently on' : 'Parental controls currently off'}
+        </button>
+      </div>
       <Searchbar key='searchbar' 
         handleSearch={handleSearch}
         search={search} 

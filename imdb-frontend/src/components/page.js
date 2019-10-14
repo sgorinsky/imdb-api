@@ -6,11 +6,11 @@ const Page = ({ array, page, setPage }) => {
     return (
         <div>
             <div className='page' style={showWhenFalse}>
-            { array.slice((page - 1) * 20, page * 20) }
-                <button className="btn btn-space btn-outline-info btn-sm" onClick={() => setPage(page - 1)} style={page===1 ? {display:'none'} : {display:''}}>
+                { array.slice((page - 1) * 20, page * 20) }
+                <button className="btn btn-space btn-info btn-sm" onClick={() => setPage(page - 1)} style={page===1 ? {display:'none'} : {display:''}}>
                     previous
                 </button>
-                <button className="btn btn-space btn-outline-dark btn-sm" onClick={() => setPage(page + 1)} style={page*20 >= array.length ? { display: 'none' } : { display: ''}}>
+                <button className="btn btn-space btn-dark btn-sm" onClick={() => setPage(page + 1)} style={page*20 >= array.length ? { display: 'none' } : { display: ''}}>
                     next
                 </button>
                 <p >
