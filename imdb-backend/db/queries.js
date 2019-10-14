@@ -43,24 +43,24 @@ const queries = {
 } 
 
 // safety on -- not adult
-queries['safetyOn']['az']['asc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle LIMIT 10000;'
-queries['safetyOn']['az']['desc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle DESC LIMIT 10000;'
+queries['safetyOn']['az']['asc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle LIMIT 60000;'
+queries['safetyOn']['az']['desc'] = 'SELECT * FROM az_asc WHERE NOT isadult = \'1\' ORDER BY primarytitle DESC LIMIT 60000;'
 
-queries['safetyOn']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 10000;'
-queries['safetyOn']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 10000;'
+queries['safetyOn']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 60000;'
+queries['safetyOn']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE NOT isadult=\'1\' AND startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 60000;'
 
-queries['safetyOn']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 10000;'
-queries['safetyOn']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runtime_string_length, * FROM az_asc where runtimeminutes BETWEEN \'0\' AND \'A\' AND length(runtimeminutes) = 3 AND NOT isadult = \'1\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtime_string_length, runtimeminutes desc LIMIT 10000;' 
+queries['safetyOn']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 60000;'
+queries['safetyOn']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runtime_string_length, * FROM az_asc where runtimeminutes BETWEEN \'0\' AND \'A\' AND length(runtimeminutes) = 3 AND NOT isadult = \'1\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtime_string_length, runtimeminutes desc LIMIT 60000;' 
 
 // safety filter off
-queries['safetyOff']['az']['asc'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC LIMIT 1500;'
-queries['safetyOff']['az']['desc'] = 'SELECT * FROM az_asc ORDER BY primarytitle DESC LIMIT 1500;'
+queries['safetyOff']['az']['asc'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC LIMIT 60000;'
+queries['safetyOff']['az']['desc'] = 'SELECT * FROM az_asc ORDER BY primarytitle DESC LIMIT 60000;'
 
-queries['safetyOff']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 10000;'
-queries['safetyOff']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 10000;'
+queries['safetyOff']['startyear']['asc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' LIMIT 60000;'
+queries['safetyOff']['startyear']['desc'] = 'SELECT * FROM year_asc WHERE startyear BETWEEN \'1850\' AND \'2020\' AND startyear ~ \'^[0-9\.]+$\' ORDER BY startyear DESC LIMIT 60000;'
 
-queries['safetyOff']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 10000;'
-queries['safetyOff']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runtime_string_length, * FROM az_asc where runtimeminutes < \'A\' and length(runtimeminutes) = 3 AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtime_string_length, runtimeminutes desc LIMIT 10000;'
+queries['safetyOff']['runtime']['asc'] = 'SELECT * FROM az_asc WHERE runtimeminutes BETWEEN \'0\' AND \'A\' AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtimeminutes ASC LIMIT 60000;'
+queries['safetyOff']['runtime']['desc'] = 'SELECT LENGTH(runtimeminutes) as runtime_string_length, * FROM az_asc where runtimeminutes < \'A\' and length(runtimeminutes) = 3 AND runtimeminutes ~ \'^[0-9\.]+$\' ORDER BY runtime_string_length, runtimeminutes desc LIMIT 60000;'
 
 // for searching
 queries['all'] = 'SELECT * FROM az_asc ORDER BY primarytitle ASC'
